@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Filter</title>
+    <style>
+        .student-list {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Student Marks Filter</h1>
+
+<!-- Buttons to filter students -->
+<button onclick="filterStudents(90)">Show 90+ Marks</button>
+<button onclick="filterStudents(75)">Show 75+ Marks</button>
+<button onclick="filterStudents(50)">Show 50+ Marks</button>
+<button onclick="showFailed()">Show Failed Students</button>
+
+<!-- Area to display students -->
+<div class="student-list" id="studentList"></div>
+
+<script>
+// Array of student objects
+const students = [
+    { name: 'Aakash', marks: 95 },
+    { name: 'yatish', marks: 96 },
+    { name: 'Sara', marks: 85 },
+    { name: 'Suresh', marks: 86 },
+    { name: 'aman', marks: 77 },
+    { name: 'ansh', marks: 60 },
+    { name: 'prince', marks: 45 },
+    { name: 'ankush', marks: 30 },
+];
+
+
+function filterStudents(minMarks) {
+    const filteredStudents = students.filter(student => student.marks >= minMarks);
+    displayStudents(filteredStudents);
+}
+
+function showFailed() {
+    const failedStudents = students.filter(student => student.marks < 50);
+    displayStudents(failedStudents);
+}
+
+
+function displayStudents(filteredStudents) {
+    const studentList = document.getElementById('studentList');
+    studentList.innerHTML = ''; 
+
+    if (filteredStudents.length === 0) {
+        studentList.innerHTML = '<p>No students found.</p>';
+        return;
+    }
+
+    filteredStudents.forEach(student => {
+        const studentItem = document.createElement('p');
+        studentItem.textContent = `${student.name} - Marks: ${student.marks}`;
+        studentList.appendChild(studentItem);
+    });
+}
+</script>
+
+</body>
+</html>
